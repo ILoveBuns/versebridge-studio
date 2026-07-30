@@ -49,6 +49,7 @@ class VerseBridgeTests(unittest.TestCase):
             self.assertIn("headline", result["pack"])
         finally:
             server.shutdown()
+            server.server_close()
 
 
 if __name__ == "__main__":
