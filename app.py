@@ -11,6 +11,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from movement import BiometricSnapshot, select_delivery
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
@@ -131,12 +132,24 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_POST(self) -> None:
-        if self.path != "/api/create":
+        if self.path not in {"/api/create", "/api/workout"}:
             self.send_error(404)
             return
         try:
             length = int(self.headers.get("Content-Length", "0"))
             data = json.loads(self.rfile.read(length))
+            if self.path == "/api/workout":
+                snapshot = BiometricSnapshot(
+                    heart_rate=int(data["heart_rate"]),
+                    hr_zone=int(data["hr_zone"]),
+                    activity_type=data["activity_type"],
+                    effort_pct=float(data["effort_pct"]),
+                    recovery_score=int(data.get("recovery_score", 70)),
+                    stress_index=float(data.get("stress_index", 2)),
+                    session_minute=int(data.get("session_minute", 0)),
+                )
+                self.send_json(200, {"delivery": select_delivery(snapshot)})
+                return
             passage = retrieve_passage(data.get("bible_id", "3034"), data["reference"])
             pack = create_pack(
                 passage,

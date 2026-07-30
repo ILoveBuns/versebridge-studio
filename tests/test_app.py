@@ -5,6 +5,7 @@ import unittest
 import urllib.request
 
 from app import Handler, ThreadingHTTPServer, create_pack, retrieve_passage
+from movement import BiometricSnapshot, detect_moment, select_delivery
 
 
 class VerseBridgeTests(unittest.TestCase):
@@ -50,6 +51,14 @@ class VerseBridgeTests(unittest.TestCase):
         finally:
             server.shutdown()
             server.server_close()
+
+    def test_peak_effort_selects_wearable_delivery(self):
+        snapshot = BiometricSnapshot(174, 5, "running", 0.91, 72, 4.1, 18)
+        self.assertEqual(detect_moment(snapshot), "peak_effort")
+        delivery = select_delivery(snapshot)
+        self.assertEqual(delivery["detected_moment"], "peak_effort")
+        self.assertIn("verse_reference", delivery)
+        self.assertIn("delivery_format", delivery)
 
 
 if __name__ == "__main__":

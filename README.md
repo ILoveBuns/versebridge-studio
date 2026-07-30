@@ -1,6 +1,7 @@
 # VerseBridge Studio
 
-Creator-ready Scripture content packs grounded in licensed YouVersion text and generated with Gloo AI.
+Biometric Scripture moments for workouts plus creator-ready content packs,
+grounded in licensed YouVersion text and generated with Gloo AI.
 
 ## Run
 
@@ -16,3 +17,11 @@ Without credentials the app runs in a clearly labelled demo mode. For live integ
 - Every pack retains a visible reference and source link.
 - The model receives only text retrieved from YouVersion and is instructed not to invent quotations.
 - Generated reflections include a review note rather than presenting themselves as Scripture.
+
+## Official hackathon data
+
+The VersePulse flow consumes the competition's biometric fields (heart rate,
+HR zone, activity, effort, recovery, stress, and session minute), detects the
+current workout moment, and selects the closest compatible entry from the
+official verse-movement mapping. It degrades to a small built-in mapping when
+the Kaggle files are not present.
