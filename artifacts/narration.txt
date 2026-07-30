@@ -1,0 +1,11 @@
+Meet VerseBridge Studio, a Scripture experience designed for the moments when encouragement matters most.
+
+VersePulse reads live workout signals such as activity, heart rate, heart-rate zone, effort, recovery, stress, and elapsed time. Here, a runner reaches one hundred seventy-four beats per minute, zone five, and ninety-one percent effort.
+
+The system detects a peak-effort moment. It ranks the official competition verse mappings by moment, activity compatibility, and trigger proximity. Romans eight thirty-seven is selected and delivered with a haptic pulse and wearable display.
+
+VerseBridge also includes a creator studio. A creator chooses a passage, audience, format, and tone. Licensed Scripture retrieved through YouVersion remains visibly separated from commentary produced through Gloo AI.
+
+Every result preserves the reference and source link, labels generated commentary, and includes a human-review safeguard. When credentials are unavailable, the prototype clearly identifies demo content rather than pretending it is live Scripture.
+
+VerseBridge brings Scripture into fitness and creator workflows naturally: grounded, timely, and designed for trust.

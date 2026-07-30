@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 data/official/
+artifacts/frames/
+artifacts/narration.mp3

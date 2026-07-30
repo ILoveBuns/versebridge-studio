@@ -41,6 +41,12 @@ interpretation look like Scripture.
 - Python standard library
 - Accessible responsive HTML and CSS
 
+## Links
+
+- Source: https://github.com/ILoveBuns/versebridge-studio
+- Narrated demo:
+  https://github.com/ILoveBuns/versebridge-studio/raw/main/artifacts/versebridge-demo.mp4
+
 ## Potential frontiers
 
 The same content pack can drive an Instagram carousel, podcast opening,

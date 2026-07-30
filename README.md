@@ -9,6 +9,10 @@ grounded in licensed YouVersion text and generated with Gloo AI.
 python3 app.py
 ```
 
+## Demo
+
+[Watch the 76-second narrated product demo](artifacts/versebridge-demo.mp4).
+
 Without credentials the app runs in a clearly labelled demo mode. For live integration, set `YVP_APP_KEY` and either `GLOO_ACCESS_TOKEN` or the three Gloo client-credential variables shown in `.env.example`.
 
 ## Design safeguards
