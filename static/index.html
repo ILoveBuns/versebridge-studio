@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VerseBridge Studio</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <span class="eyebrow">YOUVERSION × GLOO AI</span>
+      <h1>VerseBridge Studio</h1>
+      <p>Turn licensed Scripture into source-grounded content packs for creators—without blurring the line between Bible text and AI commentary.</p>
+    </header>
+    <section class="panel">
+      <form id="creator-form">
+        <label>Passage reference<input name="reference" value="JHN.3.16" required></label>
+        <label>YouVersion Bible ID<input name="bible_id" value="3034" required></label>
+        <label>Audience<input name="audience" value="young adults navigating uncertainty"></label>
+        <label>Format<select name="format"><option>Instagram carousel</option><option>Podcast intro</option><option>Newsletter reflection</option><option>Wearable daily prompt</option></select></label>
+        <label>Tone<select name="tone"><option>hopeful and grounded</option><option>gentle and contemplative</option><option>clear and energetic</option></select></label>
+        <button>Create grounded pack</button>
+      </form>
+    </section>
+    <section id="result" class="result hidden" aria-live="polite">
+      <div class="source">
+        <span class="badge">VERIFIED SOURCE</span>
+        <h2 id="reference"></h2><blockquote id="passage"></blockquote>
+        <a id="source-link" target="_blank" rel="noreferrer">Open source</a>
+      </div>
+      <div class="pack">
+        <span class="badge ai">AI-GENERATED COMMENTARY</span>
+        <h2 id="headline"></h2>
+        <p id="caption"></p>
+        <h3>Reflection prompt</h3><p id="reflection"></p>
+        <h3>Visual direction</h3><p id="visual"></p>
+        <p class="safety" id="safety"></p>
+      </div>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector("#creator-form");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = form.querySelector("button");
+      button.disabled = true; button.textContent = "Creating…";
+      const payload = Object.fromEntries(new FormData(form));
+      try {
+        const response = await fetch("/api/create", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)});
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Request failed");
+        for (const [id, value] of Object.entries({
+          reference:data.passage.reference, passage:data.passage.content,
+          headline:data.pack.headline, caption:data.pack.caption,
+          reflection:data.pack.reflection, visual:data.pack.visual_direction,
+          safety:data.pack.safety_note
+        })) document.querySelector(`#${id}`).textContent = value;
+        document.querySelector("#source-link").href = data.passage.source_url;
+        document.querySelector("#result").classList.remove("hidden");
+      } catch (error) { alert(error.message); }
+      finally { button.disabled = false; button.textContent = "Create grounded pack"; }
+    });
+  </script>
+</body>
+</html>
