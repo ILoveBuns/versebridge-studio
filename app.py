@@ -15,6 +15,14 @@ from movement import BiometricSnapshot, select_delivery
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
+PACK_FIELDS = {
+    "headline",
+    "caption",
+    "reflection",
+    "visual_direction",
+    "safety_note",
+}
+MAX_PACK_FIELD_CHARS = 2_000
 
 
 def request_json(url: str, *, headers: dict[str, str], payload: dict | None = None) -> dict:
@@ -67,6 +75,29 @@ def gloo_token() -> str | None:
     return token.get("access_token")
 
 
+def validate_generated_pack(value: object, reference: str) -> dict[str, str]:
+    """Fail closed when generated content breaks the public handoff contract."""
+    if not isinstance(value, dict) or set(value) != PACK_FIELDS:
+        raise ValueError("generated pack must contain exactly the five required fields")
+    pack: dict[str, str] = {}
+    for field in PACK_FIELDS:
+        content = value[field]
+        if not isinstance(content, str) or not content.strip():
+            raise ValueError(f"generated pack field {field!r} must be non-empty text")
+        content = content.strip()
+        if len(content) > MAX_PACK_FIELD_CHARS:
+            raise ValueError(f"generated pack field {field!r} is too long")
+        pack[field] = content
+    visible_copy = " ".join(
+        pack[field] for field in ("headline", "caption", "reflection")
+    )
+    if reference.casefold() not in visible_copy.casefold():
+        raise ValueError("generated pack must retain the Scripture reference")
+    if "review" not in pack["safety_note"].casefold():
+        raise ValueError("generated pack must retain a human-review note")
+    return pack
+
+
 def create_pack(passage: dict, audience: str, format_name: str, tone: str) -> dict:
     token = gloo_token()
     if not token:
@@ -104,7 +135,7 @@ Do not invent verse text, citations, promises, or theological certainty beyond t
         },
     )
     content = result["choices"][0]["message"]["content"]
-    pack = json.loads(content)
+    pack = validate_generated_pack(json.loads(content), passage["reference"])
     pack["demo"] = False
     return pack
 
