@@ -22,6 +22,8 @@ Without credentials the app runs in a clearly labelled demo mode. For live integ
 - Scripture and generated commentary are visually separated.
 - Every pack retains a visible reference and source link.
 - The model receives only text retrieved from YouVersion and is instructed not to invent quotations.
+- Live model output is rejected unless it has the exact content-pack schema,
+  retains the visible Scripture reference, and includes a human-review note.
 - Generated reflections include a review note rather than presenting themselves as Scripture.
 
 ## Official hackathon data
