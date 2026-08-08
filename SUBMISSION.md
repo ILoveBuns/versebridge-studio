@@ -1,4 +1,7 @@
-# Kaggle submission draft
+# Kaggle submission record
+
+Formal Kaggle Writeup (submitted; judging in progress):
+https://www.kaggle.com/competitions/scripture-in-new-frontiers/writeups/versebridge-studio-scripture-in-motion
 
 ## Title
 
@@ -44,7 +47,10 @@ interpretation look like Scripture.
 ## Links
 
 - Source: https://github.com/ILoveBuns/versebridge-studio
-- Narrated demo:
+- Attached Kaggle notebook (competition-managed visibility):
+  https://www.kaggle.com/code/jidaoluckey/versebridge-studio-scripture-in-motion
+- Public YouTube demo: https://www.youtube.com/watch?v=LfFSlJCE-30
+- Reproducible demo artifact:
   https://github.com/ILoveBuns/versebridge-studio/raw/main/artifacts/versebridge-demo.mp4
 
 ## Potential frontiers

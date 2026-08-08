@@ -1,5 +1,7 @@
 # VerseBridge Studio
 
+[![tests](https://github.com/ILoveBuns/versebridge-studio/actions/workflows/test.yml/badge.svg)](https://github.com/ILoveBuns/versebridge-studio/actions/workflows/test.yml)
+
 Biometric Scripture moments for workouts plus creator-ready content packs,
 grounded in licensed YouVersion text and generated with Gloo AI.
 
